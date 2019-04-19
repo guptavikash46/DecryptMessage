@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,7 +14,7 @@ public class MainWindow {
     public MainWindow(){
 
         submitButton.addActionListener(click -> {
-            String key =keyTextField.getText();;
+            String key =keyTextField.getText();
             String filePath = filePathtextArea.getText();
 
             try {
@@ -39,12 +40,16 @@ public class MainWindow {
             JOptionPane.showMessageDialog(null, "The plain text is: "+ stringBuffer.toString());
         });
 
-           }
+    }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame("MainWindow");
         jFrame.setContentPane(new MainWindow().mainPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setMinimumSize(new Dimension(600, 500));
         jFrame.pack();
         jFrame.setVisible(true);
+
     }
+
+
 }
