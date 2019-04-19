@@ -16,11 +16,6 @@ public class CryptoUtils {
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES";
 
-//    public static void encrypt(String key, String inputText, File outputFile)
-//            throws CryptoException {
-//        doCrypto(Cipher.ENCRYPT_MODE, key, inputText, outputFile);
-//    }
-
     public static void decrypt(String key, File inputFile, File outputFile)
             throws CryptoException {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
