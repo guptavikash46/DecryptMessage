@@ -7,18 +7,35 @@ import java.io.IOException;
 
 public class MainWindow {
     private JTextField keyTextField;
-    private JTextArea filePathtextArea;
     private JButton submitButton;
     private JPanel mainPanel;
+    private JButton selectFileButton;
+    private JFileChooser jFileChooser;
+    static JFrame jFrame = new JFrame("MainWindow");
+    private File inputFile;
 
     public MainWindow(){
 
+        //code to select the file from the path - 21st april 2019
+        jFileChooser = new JFileChooser("/home/vikas/IdeaProjects/EncryptMessage");
+        selectFileButton.addActionListener(click -> {
+            int returnVal = jFileChooser.showOpenDialog(jFrame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    inputFile = jFileChooser.getSelectedFile();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null,"problem accessing file"+inputFile.getAbsolutePath());
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"File access cancelled by user.");
+            }
+        });
+
+        //decryption on button click - 17th april 2019
         submitButton.addActionListener(click -> {
             String key =keyTextField.getText();
-            String filePath = filePathtextArea.getText();
-
             try {
-            File inputFile = new File(filePath);
             File decryptedFile = new File("document.decrypted");
             CryptoUtils.decrypt(key, inputFile, decryptedFile);
             } catch (CryptoException ex) {
@@ -42,7 +59,6 @@ public class MainWindow {
 
     }
     public static void main(String[] args) {
-        JFrame jFrame = new JFrame("MainWindow");
         jFrame.setContentPane(new MainWindow().mainPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setMinimumSize(new Dimension(600, 500));
